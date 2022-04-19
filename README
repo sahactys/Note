@@ -1,0 +1,2 @@
+add (privacy_view,privacy_comment)
+createComment(owner_id,reply_to,guid)
