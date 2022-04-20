@@ -1,8 +1,22 @@
-class Person {
-    private var notes = emptyList<Note>()
+class Person() {
+    private val notes = mutableListOf<Note>()
+
+    fun noteSize(): Int {
+        return notes.size
+    }
+
+    fun notePrint() {
+        notes.forEach {
+            println("{${it.title}, ${it.text}, ${it.deleted}}")
+        }
+        notes.forEach {
+            print("${it.comments}")
+        }
+
+    }
 
     fun add(note: Note): Note {
-        notes += note
+        notes.add(note)
         return notes.last()
     }
 
@@ -15,38 +29,54 @@ class Person {
     }
 
     fun delete(noteId: Int): Boolean {
-        return if (noteId <= notes.size && (!notes[noteId].deleted)) {
-            notes[noteId].deleted = true
-            for (comment in notes[noteId].comments) {
-                comment.deleted = true
-            }
-            true
-        } else false
+        return try {
+            if (noteId <= notes.size && (!notes[noteId].deleted)) {
+                notes[noteId].deleted = true
+                for (comment in notes[noteId].comments) {
+                    comment.deleted = true
+                }
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun deleteComment(noteId: Int, commentId: Int): Boolean {
-        return if (!notes[noteId].deleted && !notes[noteId].comments[commentId].deleted) {
-            notes[noteId].comments[commentId].deleted = true
-            true
-        } else false
+        return try {
+            if (!notes[noteId].deleted && !notes[noteId].comments[commentId].deleted) {
+                notes[noteId].comments[commentId].deleted = true
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun edit(noteId: Int, note: Note): Boolean {
-        return if (noteId <= notes.size && !notes[noteId].deleted) {
-            notes[noteId].title = note.title
-            notes[noteId].text = note.text
-            true
-        } else false
+        return try {
+            return if (noteId <= notes.size && !notes[noteId].deleted) {
+                notes[noteId].title = note.title
+                notes[noteId].text = note.text
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun editComment(noteId: Int, commentId: Int, message: String): Boolean {
-        return if (noteId <= notes.size &&
-            commentId <= notes[noteId].comments.size &&
-            !notes[noteId].comments[commentId].deleted
-        ) {
-            notes[noteId].comments[commentId].message = message
-            true
-        } else false
+        return try {
+            return if (noteId <= notes.size &&
+                commentId <= notes[noteId].comments.size &&
+                !notes[noteId].comments[commentId].deleted
+            ) {
+                notes[noteId].comments[commentId].message = message
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun get(): List<Note> {
@@ -62,13 +92,17 @@ class Person {
     }
 
     fun restoreComment(noteId: Int, commentId: Int): Boolean {
-        return if (!notes[noteId].deleted &&
-            notes[noteId].comments[commentId].deleted &&
-            noteId <= notes.size &&
-            commentId <= notes[noteId].comments.size
-        ) {
-            notes[noteId].comments[commentId].deleted = false
-            true
-        } else false
+        return try {
+            return if (!notes[noteId].deleted &&
+                notes[noteId].comments[commentId].deleted &&
+                noteId <= notes.size &&
+                commentId <= notes[noteId].comments.size
+            ) {
+                notes[noteId].comments[commentId].deleted = false
+                true
+            } else false
+        } catch (e: Exception) {
+            false
+        }
     }
 }
