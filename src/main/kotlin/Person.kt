@@ -25,7 +25,10 @@ class Person() {
         return if (postId <= notes.size) {
             notes[postId].comments.add(comment)
             true
-        } else false
+        } else {
+            println("Комментарий не создан ")
+            false
+        }
     }
 
     fun delete(noteId: Int): Boolean {
@@ -36,8 +39,12 @@ class Person() {
                     comment.deleted = true
                 }
                 true
-            } else false
+            } else {
+                println("Заметка не найдена или уже удалена ")
+                false
+            }
         } catch (e: Exception) {
+            println("Заметка не найдена или уже удалена ")
             false
         }
     }
@@ -47,8 +54,12 @@ class Person() {
             if (!notes[noteId].deleted && !notes[noteId].comments[commentId].deleted) {
                 notes[noteId].comments[commentId].deleted = true
                 true
-            } else false
+            } else {
+                println("Комментарий не найден или уже удален")
+                false
+            }
         } catch (e: Exception) {
+            println("Комментарий не найден или уже удален")
             false
         }
     }
@@ -59,8 +70,12 @@ class Person() {
                 notes[noteId].title = note.title
                 notes[noteId].text = note.text
                 true
-            } else false
+            } else {
+                println("Заметка не найдена или удалена")
+                false
+            }
         } catch (e: Exception) {
+            println("Заметка не найдена или удалена")
             false
         }
     }
@@ -73,8 +88,12 @@ class Person() {
             ) {
                 notes[noteId].comments[commentId].message = message
                 true
-            } else false
+            } else {
+                println("Комментарий не найден или удален")
+                false
+            }
         } catch (e: Exception) {
+            println("Комментарий не найден или удален")
             false
         }
     }
@@ -100,8 +119,12 @@ class Person() {
             ) {
                 notes[noteId].comments[commentId].deleted = false
                 true
-            } else false
+            } else {
+                println("Комментарий не найден или не был удален")
+                false
+            }
         } catch (e: Exception) {
+            println("Комментарий не найден или не был удален")
             false
         }
     }
